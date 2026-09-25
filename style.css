@@ -1,0 +1,957 @@
+/* =========================
+   NUVENS
+========================= */
+
+.cloud {
+    position: absolute;
+
+    width: 105px;
+    height: 30px;
+
+    background: white;
+
+    border-radius: 20px;
+
+    opacity: 0.95;
+
+    z-index: 2;
+
+    transition: transform 0.2s ease;
+}
+
+/* Bolinha esquerda */
+
+.cloud::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 45px;
+    height: 45px;
+
+    left: 12px;
+    top: -20px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    z-index: 0;
+}
+
+/* Bolinha direita */
+
+.cloud::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 50px;
+    height: 50px;
+
+    right: 8px;
+    top: -25px;
+
+    background: white;
+
+    border-radius: 50%;
+
+    z-index: 0;
+}
+
+
+/* TEXTO DA NUVEM */
+
+.cloud-text {
+
+    position: absolute;
+
+    left: 0;
+    top: 8px;
+
+    width: 100%;
+
+    text-align: center;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 8px;
+
+    font-weight: 900;
+
+    line-height: 10px;
+
+    color: #000;
+
+    white-space: nowrap;
+
+    z-index: 5;
+
+    pointer-events: none;
+
+    text-shadow:
+        1px 1px 0 #fff;
+
+}
+
+
+/* POSIÇÃO DAS NUVENS */
+
+.cloud1 {
+
+    top: 80px;
+    left: 20px;
+}
+
+.cloud2 {
+
+    top: 160px;
+    left: 250px;
+
+    transform: scale(0.8);
+}
+
+.cloud3 {
+
+    top: 250px;
+    left: 120px;
+
+    transform: scale(0.7);
+}
+
+.cloud4 {
+
+    top: 330px;
+    left: 300px;
+
+    transform: scale(0.65);
+}
+
+
+/* =========================
+   RESTO DO SEU CSS
+========================= */
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+
+    background: #222;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    min-height: 100vh;
+
+    font-family: "Courier New", monospace;
+
+    overflow: hidden;
+}
+
+#game {
+
+    position: relative;
+
+    width: 400px;
+    height: 600px;
+
+    overflow: hidden;
+
+    background: #5ec8ff;
+
+    border: 6px solid #000;
+
+    image-rendering: pixelated;
+}
+
+
+/* SKY */
+
+#sky {
+
+    position: absolute;
+
+    inset: 0;
+
+    background:
+        linear-gradient(
+            #55c7ff,
+            #b7edff
+        );
+}
+
+
+/* HUD */
+
+#hud {
+
+    position: absolute;
+
+    top: 15px;
+    left: 0;
+
+    width: 100%;
+
+    z-index: 10;
+
+    text-align: center;
+
+    pointer-events: none;
+}
+
+#score {
+
+    font-size: 42px;
+
+    font-weight: bold;
+
+    color: white;
+
+    text-shadow:
+        3px 3px 0 #000,
+        -2px -2px 0 #000;
+}
+
+#combo {
+
+    margin-top: 3px;
+
+    font-size: 14px;
+
+    font-weight: bold;
+
+    color: #ffe600;
+
+    text-shadow:
+        2px 2px 0 #000;
+}
+
+#lives {
+
+    position: absolute;
+
+    right: 15px;
+    top: 5px;
+
+    font-size: 18px;
+}
+
+
+/* =========================
+   PASSARINHO
+========================= */
+
+#bird {
+
+    position: absolute;
+
+    width: 42px;
+    height: 34px;
+
+    left: 80px;
+    top: 280px;
+
+    z-index: 8;
+
+    background: #ffd21f;
+
+    border: 3px solid #000;
+
+    border-radius:
+        50% 45% 45% 50%;
+
+    transform-origin: center;
+}
+
+.bird-eye {
+
+    position: absolute;
+
+    width: 8px;
+    height: 8px;
+
+    background: #fff;
+
+    border: 2px solid #000;
+
+    border-radius: 50%;
+
+    right: 7px;
+    top: 5px;
+}
+
+.bird-eye::after {
+
+    content: "";
+
+    position: absolute;
+
+    width: 3px;
+    height: 3px;
+
+    background: #000;
+
+    border-radius: 50%;
+
+    right: 0;
+    top: 1px;
+}
+
+.bird-wing {
+
+    position: absolute;
+
+    width: 20px;
+    height: 13px;
+
+    left: 5px;
+    bottom: 3px;
+
+    background: #f1ad00;
+
+    border: 2px solid #000;
+
+    border-radius: 50%;
+}
+
+.bird-beak {
+
+    position: absolute;
+
+    right: -12px;
+    top: 12px;
+
+    width: 15px;
+    height: 10px;
+
+    background: #ff7319;
+
+    border: 2px solid #000;
+}
+
+
+/* PERSONAGENS */
+
+#bird.character-yellow {
+    background: #ffd21f;
+}
+
+#bird.character-red {
+    background: #ef4444;
+}
+
+#bird.character-blue {
+    background: #38a8ff;
+}
+
+
+/* =========================
+   CANOS
+========================= */
+
+.pipe {
+
+    position: absolute;
+
+    width: 66px;
+
+    background: #35a936;
+
+    border: 4px solid #000;
+
+    z-index: 5;
+}
+
+.pipe::before {
+
+    content: "";
+
+    position: absolute;
+
+    width: 74px;
+    height: 25px;
+
+    left: -8px;
+
+    background: #43c743;
+
+    border: 4px solid #000;
+}
+
+.pipe.top {
+    top: 0;
+}
+
+.pipe.bottom {
+    bottom: 70px;
+}
+
+
+/* =========================
+   MOEDAS
+========================= */
+
+.coin {
+
+    position: absolute;
+
+    width: 24px;
+    height: 24px;
+
+    border-radius: 50%;
+
+    background: #ffd700;
+
+    border: 3px solid #000;
+
+    z-index: 6;
+}
+
+.coin::after {
+
+    content: "$";
+
+    position: absolute;
+
+    left: 5px;
+    top: 0;
+
+    font-size: 15px;
+
+    font-weight: bold;
+}
+
+.coin.collecting {
+
+    animation:
+        coinCollect
+        0.3s
+        ease-out
+        forwards;
+}
+
+@keyframes coinCollect {
+
+    0% {
+        transform: scale(1);
+        opacity: 1;
+    }
+
+    100% {
+        transform: scale(2);
+        opacity: 0;
+    }
+}
+
+
+/* =========================
+   CHÃO
+========================= */
+
+#ground {
+
+    position: absolute;
+
+    bottom: 0;
+
+    width: 100%;
+    height: 70px;
+
+    background: #c98b3a;
+
+    border-top: 5px solid #000;
+
+    z-index: 9;
+}
+
+.grass {
+
+    position: absolute;
+
+    top: -15px;
+
+    width: 100%;
+    height: 15px;
+
+    background: #43b83c;
+
+    border-top: 3px solid #000;
+    border-bottom: 3px solid #000;
+}
+
+.groundPattern {
+
+    position: absolute;
+
+    width: 100%;
+    height: 100%;
+
+    background-image:
+        repeating-linear-gradient(
+            45deg,
+            transparent 0,
+            transparent 10px,
+            rgba(0,0,0,0.1) 10px,
+            rgba(0,0,0,0.1) 20px
+        );
+}
+
+
+/* =========================
+   TELA INICIAL
+========================= */
+
+#startScreen {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 20;
+
+    display: flex;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            #42bfff,
+            #b9edff
+        );
+}
+
+.title-screen {
+
+    width: 95%;
+
+    padding: 15px;
+}
+
+.title-screen h1,
+.title-screen h2 {
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-weight: 900;
+
+    letter-spacing: 3px;
+
+    text-shadow:
+        4px 4px 0 #000,
+        -2px -2px 0 #fff;
+}
+
+.title-screen h1 {
+
+    font-size: 34px;
+
+    color: #ffe000;
+}
+
+.title-screen h2 {
+
+    margin-top: -3px;
+
+    font-size: 48px;
+
+    color: #ff4b35;
+}
+
+.creator {
+
+    margin-top: 12px;
+    margin-bottom: 15px;
+
+    font-size: 13px;
+
+    font-weight: bold;
+
+    color: #000;
+}
+
+
+/* SELETORES */
+
+#characterSelect p,
+#worldSelect p {
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    margin-bottom: 5px;
+}
+
+#worldSelect {
+    margin-top: 10px;
+}
+
+.characters,
+.worlds {
+
+    display: flex;
+
+    justify-content: center;
+
+    gap: 8px;
+}
+
+.character,
+.world {
+
+    width: 48px;
+    height: 40px;
+
+    border: 3px solid #000;
+
+    background: #fff;
+
+    font-size: 21px;
+
+    cursor: pointer;
+}
+
+.character.selected,
+.world.selected {
+
+    background: #ffe000;
+
+    transform:
+        translateY(-3px);
+
+    box-shadow:
+        3px 3px 0 #000;
+}
+
+
+/* BOTÕES */
+
+#startButton,
+#restart {
+
+    margin-top: 18px;
+
+    padding:
+        11px 30px;
+
+    border: 4px solid #000;
+
+    background: #ffe000;
+
+    color: #000;
+
+    font-family:
+        "Courier New",
+        monospace;
+
+    font-size: 18px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow:
+        5px 5px 0 #000;
+}
+
+#startButton:hover,
+#restart:hover {
+
+    transform:
+        translate(2px, 2px);
+
+    box-shadow:
+        3px 3px 0 #000;
+}
+
+#startButton:active,
+#restart:active {
+
+    transform:
+        translate(5px, 5px);
+
+    box-shadow: none;
+}
+
+
+/* GAME OVER */
+
+#gameOver {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 30;
+
+    display: none;
+
+    flex-direction: column;
+
+    justify-content: center;
+    align-items: center;
+
+    text-align: center;
+
+    background:
+        rgba(0,0,0,0.82);
+
+    color: white;
+}
+
+#gameOver h2 {
+
+    font-size: 38px;
+
+    color: #ff4444;
+
+    text-shadow:
+        3px 3px 0 #000;
+
+    margin-bottom: 15px;
+}
+
+#gameOver p {
+
+    margin-top: 7px;
+
+    font-size: 13px;
+}
+
+#finalScore,
+#bestScore,
+#finalCoins {
+
+    font-size: 24px;
+
+    font-weight: bold;
+}
+
+#medal {
+
+    margin-top: 10px;
+
+    font-size: 32px;
+}
+
+
+/* PAUSA */
+
+#pauseScreen {
+
+    position: absolute;
+
+    inset: 0;
+
+    z-index: 25;
+
+    display: none;
+
+    justify-content: center;
+    align-items: center;
+
+    flex-direction: column;
+
+    background:
+        rgba(0,0,0,0.65);
+
+    color: white;
+
+    text-align: center;
+}
+
+#pauseScreen h2 {
+
+    font-size: 40px;
+
+    margin-bottom: 15px;
+}
+
+
+/* PARTICULAS */
+
+.particle {
+
+    position: absolute;
+
+    width: 7px;
+    height: 7px;
+
+    background: #ffe000;
+
+    border: 2px solid #000;
+
+    z-index: 15;
+
+    pointer-events: none;
+
+    animation:
+        particleAnimation
+        0.6s
+        ease-out
+        forwards;
+}
+
+@keyframes particleAnimation {
+
+    0% {
+
+        transform:
+            translate(0,0);
+
+        opacity: 1;
+    }
+
+    100% {
+
+        transform:
+            translate(var(--x),var(--y))
+            rotate(180deg);
+
+        opacity: 0;
+    }
+}
+
+
+/* DANO */
+
+#game.damage {
+
+    animation:
+        damageFlash
+        0.2s;
+}
+
+@keyframes damageFlash {
+
+    0% {
+        filter: none;
+    }
+
+    50% {
+        filter: brightness(2);
+    }
+
+    100% {
+        filter: none;
+    }
+}
+
+
+/* MUNDOS */
+
+.world-day #sky {
+
+    background:
+        linear-gradient(
+            #55c7ff,
+            #b7edff
+        );
+}
+
+.world-night #sky {
+
+    background:
+        linear-gradient(
+            #10163d,
+            #263a78
+        );
+}
+
+.world-night .cloud,
+.world-night .cloud::before,
+.world-night .cloud::after {
+
+    background: #c5c9df;
+}
+
+.world-forest #sky {
+
+    background:
+        linear-gradient(
+            #65c94a,
+            #b6ed8b
+        );
+}
+
+.world-forest #ground {
+
+    background: #70452a;
+}
+
+.world-forest .grass {
+
+    background: #176d2b;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 500px) {
+
+    #game {
+
+        width: 100vw;
+        height: 100vh;
+
+        border: none;
+    }
+
+    .title-screen h1 {
+        font-size: 28px;
+    }
+
+    .title-screen h2 {
+        font-size: 42px;
+    }
+
+    .cloud-text {
+        font-size: 7px;
+    }
+}
+#menuButton {
+    margin-top: 12px;
+
+    padding: 9px 24px;
+
+    border: 4px solid #000;
+
+    background: #5ec8ff;
+
+    color: #000;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 15px;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    box-shadow: 4px 4px 0 #000;
+}
+
+#menuButton:hover {
+    transform: translate(2px, 2px);
+
+    box-shadow: 2px 2px 0 #000;
+}
+
+#menuButton:active {
+    transform: translate(4px, 4px);
+
+    box-shadow: none;
+}

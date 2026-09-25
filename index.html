@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Super Pinto Jumper</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div id="game">
+
+    <div id="sky">
+
+        <div class="cloud cloud1">
+            <span class="cloud-text">VAI 2DS!</span>
+        </div>
+
+        <div class="cloud cloud2">
+            <span class="cloud-text">DS MELHOR CURSO!</span>
+        </div>
+
+        <div class="cloud cloud3">
+            <span class="cloud-text">BORZUK LINDO!</span>
+        </div>
+
+        <div class="cloud cloud4">
+            <span class="cloud-text">FEITO POR JOAO VITOR!</span>
+        </div>
+
+    </div>
+
+    <div id="hud">
+        <div id="score">0</div>
+        <div id="combo">COMBO x0</div>
+        <div id="lives">❤️ ❤️ ❤️</div>
+    </div>
+
+    <div id="bird">
+        <div class="bird-eye"></div>
+        <div class="bird-wing"></div>
+        <div class="bird-beak"></div>
+    </div>
+
+    <div id="ground">
+        <div class="grass"></div>
+        <div class="groundPattern"></div>
+    </div>
+
+    <!-- TELA INICIAL -->
+    <div id="startScreen">
+
+        <div class="title-screen">
+
+            <h1>SUPER PINTO</h1>
+            <h2>JUMPER</h2>
+
+            <p class="creator">
+                Feito por Joao Vitor 2DS
+            </p>
+
+            <div id="characterSelect">
+
+                <p>ESCOLHA SEU PINTO</p>
+
+                <div class="characters">
+
+                    <button class="character selected" data-character="yellow">
+                        🐤
+                    </button>
+
+                    <button class="character" data-character="red">
+                        🐦
+                    </button>
+
+                    <button class="character" data-character="blue">
+                        🐥
+                    </button>
+
+                </div>
+
+            </div>
+
+            <div id="worldSelect">
+
+                <p>ESCOLHA O MUNDO</p>
+
+                <div class="worlds">
+
+                    <button class="world selected" data-world="day">
+                        ☀️
+                    </button>
+
+                    <button class="world" data-world="night">
+                        🌙
+                    </button>
+
+                    <button class="world" data-world="forest">
+                        🌲
+                    </button>
+
+                </div>
+
+            </div>
+
+            <button id="startButton">
+                JOGAR
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- GAME OVER -->
+    <div id="gameOver">
+
+        <h2>GAME OVER</h2>
+
+        <p>PONTUAÇÃO</p>
+        <div id="finalScore">0</div>
+
+        <p>RECORDE</p>
+        <div id="bestScore">0</div>
+
+        <p>MOEDAS</p>
+        <div id="finalCoins">0</div>
+
+        <div id="medal"></div>
+
+        <button id="restart">
+            JOGAR NOVAMENTE
+        </button>
+
+        <button id="menuButton">
+            MENU PRINCIPAL
+        </button>
+
+    </div>
+
+    <!-- PAUSA -->
+    <div id="pauseScreen">
+
+        <h2>PAUSADO</h2>
+
+        <p>
+            Pressione <strong>P</strong> para continuar
+        </p>
+
+    </div>
+
+</div>
+
+<script src="hardware.js"></script>
+
+</body>
+</html>
