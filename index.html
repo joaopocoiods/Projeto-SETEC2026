@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,6 +12,7 @@
 
 <div id="game">
 
+    <!-- CÉU -->
     <div id="sky">
 
         <div class="cloud cloud1">
@@ -31,24 +33,62 @@
 
     </div>
 
+
+    <!-- HUD -->
     <div id="hud">
+
         <div id="score">0</div>
-        <div id="combo">COMBO x0</div>
-        <div id="lives">❤️ ❤️ ❤️</div>
+
+        <div id="combo">
+            COMBO x0
+        </div>
+
+        <div id="lives">
+            ❤️ ❤️ ❤️
+        </div>
+
+        <div id="powerupHud"></div>
+
     </div>
 
+
+    <!-- BOSS HUD -->
+    <div id="bossHud">
+
+        <div id="bossName">
+            👹 PINTO GIGANTE
+        </div>
+
+        <div id="bossBar">
+            <div id="bossHealth"></div>
+        </div>
+
+    </div>
+
+
+    <!-- PERSONAGEM -->
     <div id="bird">
+
         <div class="bird-eye"></div>
         <div class="bird-wing"></div>
         <div class="bird-beak"></div>
+
     </div>
 
+
+    <!-- CHÃO -->
     <div id="ground">
+
         <div class="grass"></div>
         <div class="groundPattern"></div>
+
     </div>
 
-    <!-- TELA INICIAL -->
+
+    <!-- =========================
+         MENU PRINCIPAL
+    ========================== -->
+
     <div id="startScreen">
 
         <div class="title-screen">
@@ -59,6 +99,9 @@
             <p class="creator">
                 Feito por Joao Vitor 2DS
             </p>
+
+
+            <!-- PERSONAGEM -->
 
             <div id="characterSelect">
 
@@ -78,9 +121,20 @@
                         🐥
                     </button>
 
+                    <button class="character locked" data-character="fire">
+                        🔥
+                    </button>
+
+                    <button class="character locked" data-character="robot">
+                        🤖
+                    </button>
+
                 </div>
 
             </div>
+
+
+            <!-- MUNDO -->
 
             <div id="worldSelect">
 
@@ -100,19 +154,265 @@
                         🌲
                     </button>
 
+                    <button class="world" data-world="volcano">
+                        🌋
+                    </button>
+
+                    <button class="world" data-world="space">
+                        🚀
+                    </button>
+
                 </div>
 
             </div>
 
+
+            <!-- BOTÕES -->
+
             <button id="startButton">
                 JOGAR
+            </button>
+
+            <button id="storyButton" class="menuButton">
+                MODO HISTÓRIA
+            </button>
+
+            <button id="shopButton" class="menuButton">
+                LOJA
+            </button>
+
+            <button id="achievementButton" class="menuButton">
+                CONQUISTAS
+            </button>
+
+            <button id="statsButton" class="menuButton">
+                ESTATÍSTICAS
+            </button>
+
+            <button id="settingsButton" class="menuButton">
+                ⚙ CONFIGURAÇÕES
             </button>
 
         </div>
 
     </div>
 
-    <!-- GAME OVER -->
+
+    <!-- =========================
+         CONFIGURAÇÕES
+    ========================== -->
+
+    <div id="settingsScreen" class="menuOverlay">
+
+        <div class="panel">
+
+            <h2>CONFIGURAÇÕES</h2>
+
+            <div class="settingRow">
+
+                <span>🔊 SOM</span>
+
+                <button id="soundButton">
+                    ON
+                </button>
+
+            </div>
+
+
+            <div class="settingRow">
+
+                <span>🎵 MÚSICA</span>
+
+                <button id="musicButton">
+                    ON
+                </button>
+
+            </div>
+
+
+            <h3>DIFICULDADE</h3>
+
+            <div class="difficultyButtons">
+
+                <button class="difficulty" data-difficulty="easy">
+                    FÁCIL
+                </button>
+
+                <button class="difficulty selected" data-difficulty="normal">
+                    NORMAL
+                </button>
+
+                <button class="difficulty" data-difficulty="hard">
+                    DIFÍCIL
+                </button>
+
+            </div>
+
+            <button class="backButton" data-close="settingsScreen">
+                VOLTAR
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         LOJA
+    ========================== -->
+
+    <div id="shopScreen" class="menuOverlay">
+
+        <div class="panel">
+
+            <h2>🛒 LOJA</h2>
+
+            <p>
+                MOEDAS:
+                <strong id="shopCoins">0</strong>
+            </p>
+
+
+            <div class="shopItems">
+
+                <button class="shopItem" data-item="fire">
+                    🔥 PINTO DE FOGO
+                    <span>100 🪙</span>
+                </button>
+
+                <button class="shopItem" data-item="robot">
+                    🤖 PINTO ROBÔ
+                    <span>200 🪙</span>
+                </button>
+
+                <button class="shopItem" data-item="shield">
+                    🛡️ ESCUDO
+                    <span>50 🪙</span>
+                </button>
+
+                <button class="shopItem" data-item="magnet">
+                    🧲 ÍMÃ
+                    <span>75 🪙</span>
+                </button>
+
+            </div>
+
+            <button class="backButton" data-close="shopScreen">
+                VOLTAR
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         CONQUISTAS
+    ========================== -->
+
+    <div id="achievementScreen" class="menuOverlay">
+
+        <div class="panel">
+
+            <h2>🏆 CONQUISTAS</h2>
+
+            <div id="achievementList"></div>
+
+            <button class="backButton" data-close="achievementScreen">
+                VOLTAR
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         ESTATÍSTICAS
+    ========================== -->
+
+    <div id="statsScreen" class="menuOverlay">
+
+        <div class="panel">
+
+            <h2>📊 ESTATÍSTICAS</h2>
+
+            <div class="statsList">
+
+                <p>
+                    🏆 Maior pontuação:
+                    <strong id="statBest">0</strong>
+                </p>
+
+                <p>
+                    🪙 Moedas:
+                    <strong id="statCoins">0</strong>
+                </p>
+
+                <p>
+                    🔥 Maior combo:
+                    <strong id="statCombo">0</strong>
+                </p>
+
+                <p>
+                    🎮 Partidas:
+                    <strong id="statGames">0</strong>
+                </p>
+
+                <p>
+                    💥 Colisões:
+                    <strong id="statHits">0</strong>
+                </p>
+
+                <p>
+                    🏅 Medalhas:
+                    <strong id="statMedals">0</strong>
+                </p>
+
+            </div>
+
+            <button class="backButton" data-close="statsScreen">
+                VOLTAR
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         MODO HISTÓRIA
+    ========================== -->
+
+    <div id="storyScreen" class="menuOverlay">
+
+        <div class="panel">
+
+            <h2>📖 MODO HISTÓRIA</h2>
+
+            <p id="storyDescription">
+                Comece sua aventura!
+            </p>
+
+            <div id="storyProgress"></div>
+
+            <button id="storyStartButton">
+                COMEÇAR FASE
+            </button>
+
+            <button class="backButton" data-close="storyScreen">
+                VOLTAR
+            </button>
+
+        </div>
+
+    </div>
+
+
+    <!-- =========================
+         GAME OVER
+    ========================== -->
+
     <div id="gameOver">
 
         <h2>GAME OVER</h2>
@@ -128,6 +428,8 @@
 
         <div id="medal"></div>
 
+        <div id="gameOverMessage"></div>
+
         <button id="restart">
             JOGAR NOVAMENTE
         </button>
@@ -138,7 +440,11 @@
 
     </div>
 
-    <!-- PAUSA -->
+
+    <!-- =========================
+         PAUSA
+    ========================== -->
+
     <div id="pauseScreen">
 
         <h2>PAUSADO</h2>
@@ -147,6 +453,20 @@
             Pressione <strong>P</strong> para continuar
         </p>
 
+        <button id="pauseMenuButton">
+            MENU PRINCIPAL
+        </button>
+
+    </div>
+
+
+    <!-- MENSAGENS -->
+    <div id="messagePopup"></div>
+
+
+    <!-- CONTROLES MOBILE -->
+    <div id="mobileControl">
+        TOQUE PARA PULAR
     </div>
 
 </div>
