@@ -1,4 +1,4 @@
-/* =========================
+//* =========================
    NUVENS
 ========================= */
 
@@ -954,4 +954,34 @@ body {
     transform: translate(4px, 4px);
 
     box-shadow: none;
+}
+/* TEXTO DOS CANOS */
+.pipe-text {
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform: translate(-50%, -50%);
+
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+
+    color: white;
+
+    font-family: "Courier New", monospace;
+    font-size: 11px;
+    font-weight: bold;
+
+    text-align: center;
+
+    white-space: nowrap;
+
+    text-shadow:
+        2px 2px 0 #000,
+        -1px -1px 0 #000;
+
+    pointer-events: none;
+
+    z-index: 10;
 }
