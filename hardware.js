@@ -1,4 +1,4 @@
-/* =====================================================
+* =====================================================
    SUPER PINTO JUMPER
 ===================================================== */
 
@@ -1316,3 +1316,56 @@ updateHUD();
 game.classList.add(
     "world-day"
 );
+/* CREATE PIPE */
+function createPipe() {
+    const gap = 150;
+    const minHeight = 80;
+    const maxHeight = game.clientHeight - 70 - gap - 80;
+
+    const topHeight =
+        Math.floor(Math.random() * (maxHeight - minHeight)) + minHeight;
+
+    const bottomHeight =
+        game.clientHeight - 70 - gap - topHeight;
+
+    /* CANO DE CIMA */
+    const topPipe = document.createElement("div");
+    topPipe.className = "pipe top";
+    topPipe.style.height = topHeight + "px";
+    topPipe.style.left = game.clientWidth + "px";
+
+    const topText = document.createElement("span");
+    topText.className = "pipe-text";
+    topText.textContent = "2DS O MELHOR!";
+
+    topPipe.appendChild(topText);
+
+    /* CANO DE BAIXO */
+    const bottomPipe = document.createElement("div");
+    bottomPipe.className = "pipe bottom";
+    bottomPipe.style.height = bottomHeight + "px";
+    bottomPipe.style.left = game.clientWidth + "px";
+
+    const bottomText = document.createElement("span");
+    bottomText.className = "pipe-text";
+    bottomText.textContent = "2DS O MELHOR!";
+
+    bottomPipe.appendChild(bottomText);
+
+    game.appendChild(topPipe);
+    game.appendChild(bottomPipe);
+
+    const pipeObject = {
+        top: topPipe,
+        bottom: bottomPipe,
+        x: game.clientWidth,
+        passed: false
+    };
+
+    pipes.push(pipeObject);
+
+    createCoin(
+        game.clientWidth + 20,
+        topHeight + gap / 2
+    );
+}
