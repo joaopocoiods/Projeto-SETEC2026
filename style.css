@@ -5,22 +5,85 @@
 }
 
 body {
-    background: #222;
+    background: #1a1a2e;
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     font-family: "Courier New", monospace;
     overflow: hidden;
+    position: relative;
 }
+
+/* =========================
+   FUNDO COM LOGO ANIMADO
+========================= */
+
+.background-logo {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    overflow: hidden;
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.background-logo .logo-track {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    display: flex;
+    align-items: center;
+    gap: 200px;
+    animation: logoSlide 30s linear infinite;
+    will-change: transform;
+}
+
+.background-logo .logo-track img {
+    height: 220px;
+    width: auto;
+    opacity: 0.9;
+    filter: drop-shadow(0 0 30px rgba(94, 200, 255, 0.55));
+    animation: logoFloat 6s ease-in-out infinite;
+}
+
+.background-logo .logo-track img:nth-child(2) {
+    animation-delay: -2s;
+    opacity: 0.75;
+}
+
+.background-logo .logo-track img:nth-child(3) {
+    animation-delay: -4s;
+    opacity: 0.85;
+}
+
+@keyframes logoSlide {
+    from { transform: translateY(-50%) translateX(0); }
+    to { transform: translateY(-50%) translateX(-50%); }
+}
+
+@keyframes logoFloat {
+    0%, 100% { transform: translateY(0) rotate(-2deg); }
+    50% { transform: translateY(-18px) rotate(2deg); }
+}
+
+/* =========================
+   JOGO (FICA NO CENTRO, NA FRENTE)
+========================= */
 
 #game {
     position: relative;
-    width: 400px;
-    height: 600px;
+    z-index: 10;
+    width: 560px;
+    height: 840px;
     overflow: hidden;
     background: #5ec8ff;
-    border: 6px solid #000;
+    border: 8px solid #000;
+    border-radius: 14px;
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.6), 0 0 100px rgba(94, 200, 255, 0.25);
     image-rendering: pixelated;
 }
 
@@ -79,28 +142,10 @@ body {
     z-index: 5;
 }
 
-.cloud1 {
-    top: 80px;
-    left: 20px;
-}
-
-.cloud2 {
-    top: 160px;
-    left: 250px;
-    transform: scale(.8);
-}
-
-.cloud3 {
-    top: 250px;
-    left: 120px;
-    transform: scale(.7);
-}
-
-.cloud4 {
-    top: 330px;
-    left: 300px;
-    transform: scale(.65);
-}
+.cloud1 { top: 80px; left: 20px; }
+.cloud2 { top: 160px; left: 340px; transform: scale(.8); }
+.cloud3 { top: 250px; left: 160px; transform: scale(.7); }
+.cloud4 { top: 330px; left: 420px; transform: scale(.65); }
 
 /* =========================
    HUD
@@ -108,7 +153,7 @@ body {
 
 #hud {
     position: absolute;
-    top: 15px;
+    top: 18px;
     left: 0;
     width: 100%;
     z-index: 20;
@@ -117,16 +162,14 @@ body {
 }
 
 #score {
-    font-size: 42px;
+    font-size: 52px;
     font-weight: bold;
     color: white;
-    text-shadow:
-        3px 3px 0 #000,
-        -2px -2px 0 #000;
+    text-shadow: 3px 3px 0 #000, -2px -2px 0 #000;
 }
 
 #combo {
-    font-size: 14px;
+    font-size: 17px;
     color: #ffe600;
     font-weight: bold;
     text-shadow: 2px 2px #000;
@@ -134,14 +177,14 @@ body {
 
 #lives {
     position: absolute;
-    right: 15px;
-    top: 5px;
-    font-size: 18px;
+    right: 18px;
+    top: 6px;
+    font-size: 22px;
 }
 
 #powerupHud {
-    margin-top: 5px;
-    font-size: 11px;
+    margin-top: 6px;
+    font-size: 12px;
     font-weight: bold;
     color: white;
     text-shadow: 2px 2px #000;
@@ -154,9 +197,9 @@ body {
 #bossHud {
     display: none;
     position: absolute;
-    top: 95px;
-    left: 40px;
-    width: 320px;
+    top: 110px;
+    left: 60px;
+    width: 440px;
     z-index: 25;
     text-align: center;
 }
@@ -164,14 +207,14 @@ body {
 #bossName {
     color: white;
     font-weight: bold;
-    font-size: 13px;
+    font-size: 15px;
     text-shadow: 2px 2px #000;
     margin-bottom: 5px;
 }
 
 #bossBar {
     width: 100%;
-    height: 18px;
+    height: 22px;
     background: #222;
     border: 3px solid #000;
 }
@@ -179,7 +222,8 @@ body {
 #bossHealth {
     width: 100%;
     height: 100%;
-    background: #e22;
+    background: linear-gradient(90deg, #e22, #ff6b6b);
+    transition: width 0.3s;
 }
 
 /* =========================
@@ -188,9 +232,9 @@ body {
 
 #bird {
     position: absolute;
-    width: 42px;
-    height: 34px;
-    left: 80px;
+    width: 54px;
+    height: 42px;
+    left: 100px;
     top: 280px;
     z-index: 10;
     background: #ffd21f;
@@ -200,20 +244,20 @@ body {
 
 .bird-eye {
     position: absolute;
-    width: 8px;
-    height: 8px;
+    width: 10px;
+    height: 10px;
     background: white;
     border: 2px solid #000;
     border-radius: 50%;
-    right: 7px;
-    top: 5px;
+    right: 9px;
+    top: 7px;
 }
 
 .bird-eye::after {
     content: "";
     position: absolute;
-    width: 3px;
-    height: 3px;
+    width: 4px;
+    height: 4px;
     background: #000;
     border-radius: 50%;
     right: 0;
@@ -222,10 +266,10 @@ body {
 
 .bird-wing {
     position: absolute;
-    width: 20px;
-    height: 13px;
-    left: 5px;
-    bottom: 3px;
+    width: 24px;
+    height: 15px;
+    left: 7px;
+    bottom: 4px;
     background: #f1ad00;
     border: 2px solid #000;
     border-radius: 50%;
@@ -233,34 +277,19 @@ body {
 
 .bird-beak {
     position: absolute;
-    right: -12px;
-    top: 12px;
-    width: 15px;
-    height: 10px;
+    right: -14px;
+    top: 15px;
+    width: 18px;
+    height: 12px;
     background: #ff7319;
     border: 2px solid #000;
 }
 
-.character-yellow {
-    background: #ffd21f !important;
-}
-
-.character-red {
-    background: #ef4444 !important;
-}
-
-.character-blue {
-    background: #38a8ff !important;
-}
-
-.character-fire {
-    background: #ff641c !important;
-    box-shadow: 0 0 15px #ff3300;
-}
-
-.character-robot {
-    background: #aaa !important;
-}
+.character-yellow { background: #ffd21f !important; }
+.character-red { background: #ef4444 !important; }
+.character-blue { background: #38a8ff !important; }
+.character-fire { background: #ff641c !important; box-shadow: 0 0 15px #ff3300; }
+.character-robot { background: #aaa !important; }
 
 /* =========================
    CANOS
@@ -268,8 +297,8 @@ body {
 
 .pipe {
     position: absolute;
-    width: 66px;
-    background: #35a936;
+    width: 82px;
+    background: linear-gradient(90deg, #35a936, #2d8a2d);
     border: 4px solid #000;
     z-index: 5;
 }
@@ -277,20 +306,15 @@ body {
 .pipe::before {
     content: "";
     position: absolute;
-    width: 74px;
-    height: 25px;
+    width: 90px;
+    height: 30px;
     left: -8px;
-    background: #43c743;
+    background: linear-gradient(90deg, #43c743, #35a936);
     border: 4px solid #000;
 }
 
-.pipe.top {
-    top: 0;
-}
-
-.pipe.bottom {
-    bottom: 70px;
-}
+.pipe.top { top: 0; }
+.pipe.bottom { bottom: 70px; }
 
 .pipe-text {
     position: absolute;
@@ -302,9 +326,7 @@ body {
     font-size: 10px;
     font-weight: bold;
     white-space: nowrap;
-    text-shadow:
-        2px 2px #000,
-        -1px -1px #000;
+    text-shadow: 2px 2px #000, -1px -1px #000;
     pointer-events: none;
     z-index: 10;
 }
@@ -315,20 +337,21 @@ body {
 
 .coin {
     position: absolute;
-    width: 24px;
-    height: 24px;
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
     background: #ffd700;
     border: 3px solid #000;
     z-index: 8;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.6);
 }
 
 .coin::after {
     content: "$";
     position: absolute;
-    left: 5px;
-    top: 0;
-    font-size: 15px;
+    left: 6px;
+    top: 1px;
+    font-size: 16px;
     font-weight: bold;
 }
 
@@ -337,10 +360,7 @@ body {
 }
 
 @keyframes coinCollect {
-    to {
-        transform: scale(2);
-        opacity: 0;
-    }
+    to { transform: scale(2); opacity: 0; }
 }
 
 /* =========================
@@ -349,36 +369,22 @@ body {
 
 .powerup {
     position: absolute;
-    width: 28px;
-    height: 28px;
+    width: 32px;
+    height: 32px;
     border: 3px solid #000;
     border-radius: 50%;
     z-index: 9;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 17px;
+    font-size: 18px;
 }
 
-.powerup.shield {
-    background: #55aaff;
-}
-
-.powerup.magnet {
-    background: #ff5555;
-}
-
-.powerup.slow {
-    background: #b65cff;
-}
-
-.powerup.life {
-    background: #ff6b6b;
-}
-
-.powerup.turbo {
-    background: #ffe600;
-}
+.powerup.shield { background: #55aaff; }
+.powerup.magnet { background: #ff5555; }
+.powerup.slow { background: #b65cff; }
+.powerup.life { background: #ff6b6b; }
+.powerup.turbo { background: #ffe600; }
 
 /* =========================
    CHÃO
@@ -407,18 +413,14 @@ body {
 .groundPattern {
     width: 100%;
     height: 100%;
-    background-image:
-        repeating-linear-gradient(
-            45deg,
-            transparent 0,
-            transparent 10px,
-            rgba(0,0,0,.1) 10px,
-            rgba(0,0,0,.1) 20px
-        );
+    background-image: repeating-linear-gradient(
+        45deg, transparent 0, transparent 10px,
+        rgba(0,0,0,.1) 10px, rgba(0,0,0,.1) 20px
+    );
 }
 
 /* =========================
-   MENU
+   MENU PRINCIPAL
 ========================= */
 
 #startScreen {
@@ -429,73 +431,348 @@ body {
     justify-content: center;
     align-items: center;
     text-align: center;
-    background: linear-gradient(#42bfff, #b9edff);
-    overflow-y: auto;
+    background: linear-gradient(180deg, #42bfff 0%, #b9edff 50%, #8fd87f 100%);
+    overflow: hidden;
 }
 
+/* =========================
+   FUNDO ANIMADO DO MENU
+========================= */
+
+.menu-background {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* SOL ANIMADO */
+.menu-sun {
+    position: absolute;
+    top: 40px;
+    right: 50px;
+    width: 90px;
+    height: 90px;
+    background: radial-gradient(circle, #fff9a8 0%, #ffe600 40%, #ffb800 100%);
+    border-radius: 50%;
+    box-shadow:
+        0 0 30px #ffe600,
+        0 0 70px rgba(255, 230, 0, 0.6),
+        0 0 120px rgba(255, 184, 0, 0.35);
+    animation: sunPulse 4s ease-in-out infinite;
+    z-index: 1;
+}
+
+.menu-sun::before {
+    content: "";
+    position: absolute;
+    inset: -18px;
+    border-radius: 50%;
+    background: conic-gradient(
+        from 0deg,
+        transparent 0deg, rgba(255, 230, 0, 0.5) 20deg, transparent 40deg,
+        transparent 60deg, rgba(255, 230, 0, 0.5) 80deg, transparent 100deg,
+        transparent 120deg, rgba(255, 230, 0, 0.5) 140deg, transparent 160deg,
+        transparent 180deg, rgba(255, 230, 0, 0.5) 200deg, transparent 220deg,
+        transparent 240deg, rgba(255, 230, 0, 0.5) 260deg, transparent 280deg,
+        transparent 300deg, rgba(255, 230, 0, 0.5) 320deg, transparent 340deg,
+        transparent 360deg
+    );
+    animation: sunRays 12s linear infinite;
+    opacity: 0.7;
+}
+
+@keyframes sunPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.08); }
+}
+
+@keyframes sunRays {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
+}
+
+/* MONTANHAS */
+.mountain-layer {
+    position: absolute;
+    bottom: 0;
+    width: 200%;
+    height: 340px;
+    background: #2d5a27;
+    clip-path: polygon(
+        0% 100%, 0% 70%, 5% 65%, 10% 72%, 15% 60%, 20% 68%, 25% 55%,
+        30% 65%, 35% 50%, 40% 62%, 45% 48%, 50% 60%, 55% 52%, 60% 65%,
+        65% 55%, 70% 68%, 75% 58%, 80% 70%, 85% 62%, 90% 72%, 95% 65%, 100% 70%, 100% 100%
+    );
+    animation: mountainScroll 20s linear infinite;
+}
+
+.mountain-layer.back {
+    bottom: 40px;
+    height: 280px;
+    background: #4a7a3f;
+    opacity: 0.6;
+    animation-duration: 35s;
+}
+
+.mountain-layer.front {
+    bottom: 0;
+    background: #2d5a27;
+    animation-duration: 20s;
+}
+
+@keyframes mountainScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(-50%); }
+}
+
+/* CANOS DE FUNDO */
+.background-pipes {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+}
+
+.bg-pipe {
+    position: absolute;
+    width: 70px;
+    background: #35a936;
+    border: 3px solid #000;
+    opacity: 0.25;
+    animation: pipeScroll linear infinite;
+    z-index: 1;
+}
+
+.bg-pipe::before {
+    content: "";
+    position: absolute;
+    width: 78px;
+    height: 22px;
+    left: -7px;
+    background: #43c743;
+    border: 3px solid #000;
+}
+
+.bg-pipe.top { top: 0; }
+.bg-pipe.bottom { bottom: 0; }
+
+.bg-pipe:nth-child(1) { height: 180px; left: 100%; animation-duration: 12s; top: 0; }
+.bg-pipe:nth-child(2) { height: 220px; left: 130%; animation-duration: 15s; top: 0; }
+.bg-pipe:nth-child(3) { height: 160px; left: 160%; animation-duration: 10s; bottom: 0; }
+.bg-pipe:nth-child(4) { height: 200px; left: 190%; animation-duration: 14s; top: 0; }
+.bg-pipe:nth-child(5) { height: 170px; left: 220%; animation-duration: 11s; bottom: 0; }
+
+@keyframes pipeScroll {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(-100vw - 200px)); }
+}
+
+/* =========================
+   NUVENS VOANDO NO MENU
+========================= */
+
+.menu-cloud {
+    position: absolute;
+    background: white;
+    border-radius: 50px;
+    opacity: 0.9;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.menu-cloud::before,
+.menu-cloud::after {
+    content: "";
+    position: absolute;
+    background: white;
+    border-radius: 50%;
+}
+
+.menu-cloud::before {
+    width: 55%;
+    height: 140%;
+    left: 10%;
+    top: -60%;
+}
+
+.menu-cloud::after {
+    width: 60%;
+    height: 160%;
+    right: 8%;
+    top: -75%;
+}
+
+.menu-cloud.c1 { width: 110px; height: 32px; top: 90px; left: -150px; animation: cloudFly 22s linear infinite; }
+.menu-cloud.c2 { width: 80px; height: 24px; top: 200px; left: -120px; animation: cloudFly 30s linear infinite; animation-delay: -8s; opacity: 0.75; }
+.menu-cloud.c3 { width: 140px; height: 40px; top: 320px; left: -180px; animation: cloudFly 38s linear infinite; animation-delay: -18s; opacity: 0.6; }
+.menu-cloud.c4 { width: 90px; height: 26px; top: 420px; left: -120px; animation: cloudFly 26s linear infinite; animation-delay: -12s; opacity: 0.85; }
+
+@keyframes cloudFly {
+    from { transform: translateX(0); }
+    to { transform: translateX(calc(100vw + 300px)); }
+}
+
+/* =========================
+   PÁSSAROS VOANDO NO MENU
+========================= */
+
+.menu-bird {
+    position: absolute;
+    width: 36px;
+    height: 28px;
+    background: #ffd21f;
+    border: 3px solid #000;
+    border-radius: 50%;
+    z-index: 3;
+    pointer-events: none;
+    animation: birdFly linear infinite;
+}
+
+.menu-bird .menu-bird-eye {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    background: white;
+    border: 2px solid #000;
+    border-radius: 50%;
+    right: 6px;
+    top: 5px;
+}
+
+.menu-bird .menu-bird-eye::after {
+    content: "";
+    position: absolute;
+    width: 3px;
+    height: 3px;
+    background: #000;
+    border-radius: 50%;
+    right: 0;
+    top: 0;
+}
+
+.menu-bird .menu-bird-wing {
+    position: absolute;
+    width: 16px;
+    height: 10px;
+    left: 5px;
+    bottom: 3px;
+    background: #f1ad00;
+    border: 2px solid #000;
+    border-radius: 50%;
+    animation: wingFlap 0.4s ease-in-out infinite;
+    transform-origin: right center;
+}
+
+.menu-bird .menu-bird-beak {
+    position: absolute;
+    right: -10px;
+    top: 10px;
+    width: 12px;
+    height: 8px;
+    background: #ff7319;
+    border: 2px solid #000;
+}
+
+.menu-bird.red { background: #ef4444; }
+.menu-bird.red .menu-bird-wing { background: #c92f2f; }
+.menu-bird.blue { background: #38a8ff; }
+.menu-bird.blue .menu-bird-wing { background: #1c7fd6; }
+
+.menu-bird.b1 { top: 150px; left: -80px; animation: birdFly 14s linear infinite; animation-delay: -3s; }
+.menu-bird.b2 { top: 260px; left: -80px; animation: birdFly 18s linear infinite; animation-delay: -9s; }
+.menu-bird.b3 { top: 380px; left: -80px; animation: birdFly 16s linear infinite; animation-delay: -14s; transform: scale(0.85); }
+
+@keyframes birdFly {
+    from { transform: translateX(0) translateY(0); }
+    25% { transform: translateX(calc(25vw + 80px)) translateY(-12px); }
+    50% { transform: translateX(calc(50vw + 160px)) translateY(6px); }
+    75% { transform: translateX(calc(75vw + 240px)) translateY(-8px); }
+    to { transform: translateX(calc(100vw + 350px)) translateY(0); }
+}
+
+@keyframes wingFlap {
+    0%, 100% { transform: rotate(0deg); }
+    50% { transform: rotate(-35deg); }
+}
+
+/* CONTEÚDO DO MENU */
 .title-screen {
     width: 95%;
-    padding: 15px;
+    max-width: 500px;
+    padding: 22px;
+    position: relative;
+    z-index: 10;
 }
 
 .title-screen h1,
 .title-screen h2 {
     font-weight: 900;
     letter-spacing: 3px;
-    text-shadow:
-        4px 4px #000,
-        -2px -2px #fff;
+    text-shadow: 4px 4px #000, -2px -2px #fff;
 }
 
 .title-screen h1 {
-    font-size: 34px;
+    font-size: 44px;
     color: #ffe000;
 }
 
 .title-screen h2 {
-    font-size: 48px;
+    font-size: 62px;
     color: #ff4b35;
 }
 
 .creator {
-    margin: 10px 0 15px;
-    font-size: 13px;
+    margin: 10px 0 18px;
+    font-size: 14px;
     font-weight: bold;
+    color: #000;
+    text-shadow: 1px 1px #fff;
 }
 
 #characterSelect p,
 #worldSelect p {
-    font-size: 10px;
+    font-size: 12px;
     font-weight: bold;
-    margin-bottom: 5px;
+    margin-bottom: 6px;
+    color: #000;
+    text-shadow: 1px 1px #fff;
 }
 
 #worldSelect {
-    margin-top: 8px;
+    margin-top: 10px;
 }
 
 .characters,
 .worlds {
     display: flex;
     justify-content: center;
-    gap: 5px;
+    gap: 7px;
+    flex-wrap: wrap;
 }
 
 .character,
 .world {
-    width: 43px;
-    height: 38px;
+    width: 52px;
+    height: 46px;
     border: 3px solid #000;
     background: white;
-    font-size: 19px;
+    font-size: 22px;
     cursor: pointer;
+    border-radius: 6px;
+    transition: transform 0.15s;
+}
+
+.character:hover,
+.world:hover {
+    transform: scale(1.1);
 }
 
 .character.selected,
 .world.selected,
 .difficulty.selected {
     background: #ffe000;
-    transform: translateY(-2px);
+    transform: translateY(-3px) scale(1.05);
     box-shadow: 3px 3px #000;
 }
 
@@ -510,8 +787,8 @@ body {
 #menuButton,
 .backButton,
 #storyStartButton {
-    margin-top: 9px;
-    padding: 9px 20px;
+    margin-top: 10px;
+    padding: 11px 24px;
     border: 4px solid #000;
     background: #ffe000;
     color: #000;
@@ -519,24 +796,27 @@ body {
     font-weight: bold;
     cursor: pointer;
     box-shadow: 4px 4px #000;
+    border-radius: 6px;
+    transition: all 0.1s;
 }
 
 #startButton {
-    font-size: 18px;
+    font-size: 22px;
+    padding: 13px 45px;
 }
 
 .menuButton {
     display: block;
-    width: 210px;
+    width: 250px;
     margin-left: auto;
     margin-right: auto;
     background: #5ec8ff;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 #menuButton {
     background: #5ec8ff;
-    font-size: 13px;
+    font-size: 14px;
 }
 
 #startButton:hover,
@@ -569,9 +849,10 @@ body {
     max-height: 90%;
     overflow-y: auto;
     padding: 20px;
-    background: #279bd2;
+    background: linear-gradient(180deg, #279bd2, #1a6fa0);
     border: 5px solid #000;
     box-shadow: 7px 7px #000;
+    border-radius: 10px;
 }
 
 .panel h2 {
@@ -581,9 +862,7 @@ body {
     text-shadow: 3px 3px #000;
 }
 
-.panel h3 {
-    margin: 15px 0 7px;
-}
+.panel h3 { margin: 15px 0 7px; }
 
 .settingRow {
     display: flex;
@@ -593,6 +872,7 @@ body {
     padding: 8px;
     background: rgba(0,0,0,.2);
     border: 2px solid #000;
+    border-radius: 6px;
 }
 
 .settingRow button {
@@ -601,6 +881,7 @@ body {
     padding: 5px;
     font-weight: bold;
     cursor: pointer;
+    border-radius: 4px;
 }
 
 .difficultyButtons {
@@ -610,10 +891,11 @@ body {
 }
 
 .difficulty {
-    padding: 7px;
+    padding: 7px 12px;
     border: 3px solid #000;
     cursor: pointer;
     font-weight: bold;
+    border-radius: 4px;
 }
 
 .shopItems {
@@ -629,6 +911,7 @@ body {
     cursor: pointer;
     font-family: inherit;
     font-weight: bold;
+    border-radius: 6px;
 }
 
 .shopItem span {
@@ -643,6 +926,7 @@ body {
     border: 3px solid #000;
     background: #777;
     text-align: left;
+    border-radius: 6px;
 }
 
 .achievement.unlocked {
@@ -660,9 +944,7 @@ body {
     font-weight: bold;
 }
 
-#storyDescription {
-    line-height: 1.5;
-}
+#storyDescription { line-height: 1.5; }
 
 /* =========================
    GAME OVER
@@ -682,7 +964,7 @@ body {
 }
 
 #gameOver h2 {
-    font-size: 38px;
+    font-size: 46px;
     color: #ff4444;
     text-shadow: 3px 3px #000;
     margin-bottom: 12px;
@@ -690,25 +972,25 @@ body {
 
 #gameOver p {
     margin-top: 5px;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 #finalScore,
 #bestScore,
 #finalCoins {
-    font-size: 23px;
+    font-size: 28px;
     font-weight: bold;
 }
 
 #medal {
     margin-top: 10px;
-    font-size: 28px;
+    font-size: 34px;
 }
 
 #gameOverMessage {
     margin-top: 8px;
     color: #ffe000;
-    font-size: 12px;
+    font-size: 14px;
     font-weight: bold;
 }
 
@@ -730,7 +1012,7 @@ body {
 }
 
 #pauseScreen h2 {
-    font-size: 40px;
+    font-size: 48px;
     margin-bottom: 15px;
 }
 
@@ -744,13 +1026,15 @@ body {
     top: 42%;
     transform: translate(-50%, -50%);
     z-index: 100;
-    padding: 10px 15px;
+    padding: 12px 18px;
     background: #ffe000;
     border: 4px solid #000;
     font-weight: bold;
-    font-size: 14px;
+    font-size: 15px;
     display: none;
     pointer-events: none;
+    border-radius: 6px;
+    box-shadow: 4px 4px #000;
 }
 
 /* =========================
@@ -769,15 +1053,8 @@ body {
 }
 
 @keyframes particleAnimation {
-    from {
-        transform: translate(0,0);
-        opacity: 1;
-    }
-
-    to {
-        transform: translate(var(--x),var(--y)) rotate(180deg);
-        opacity: 0;
-    }
+    from { transform: translate(0,0); opacity: 1; }
+    to { transform: translate(var(--x),var(--y)) rotate(180deg); opacity: 0; }
 }
 
 /* =========================
@@ -789,53 +1066,24 @@ body {
 }
 
 @keyframes damageFlash {
-    50% {
-        filter: brightness(2);
-    }
+    50% { filter: brightness(2); }
 }
 
 /* =========================
    MUNDOS
 ========================= */
 
-.world-day #sky {
-    background: linear-gradient(#55c7ff,#b7edff);
-}
-
-.world-night #sky {
-    background: linear-gradient(#10163d,#263a78);
-}
-
+.world-day #sky { background: linear-gradient(#55c7ff,#b7edff); }
+.world-night #sky { background: linear-gradient(#10163d,#263a78); }
 .world-night .cloud,
 .world-night .cloud::before,
-.world-night .cloud::after {
-    background: #c5c9df;
-}
-
-.world-forest #sky {
-    background: linear-gradient(#65c94a,#b6ed8b);
-}
-
-.world-forest #ground {
-    background: #70452a;
-}
-
-.world-forest .grass {
-    background: #176d2b;
-}
-
-.world-volcano #sky {
-    background: linear-gradient(#ff6a32,#ffbd50);
-}
-
-.world-volcano #ground {
-    background: #4b2020;
-}
-
-.world-volcano .grass {
-    background: #a22;
-}
-
+.world-night .cloud::after { background: #c5c9df; }
+.world-forest #sky { background: linear-gradient(#65c94a,#b6ed8b); }
+.world-forest #ground { background: #70452a; }
+.world-forest .grass { background: #176d2b; }
+.world-volcano #sky { background: linear-gradient(#ff6a32,#ffbd50); }
+.world-volcano #ground { background: #4b2020; }
+.world-volcano .grass { background: #a22; }
 .world-space #sky {
     background:
         radial-gradient(circle at 20% 30%, white 1px, transparent 2px),
@@ -843,14 +1091,8 @@ body {
         radial-gradient(circle at 50% 70%, white 1px, transparent 2px),
         #080b30;
 }
-
-.world-space #ground {
-    background: #272746;
-}
-
-.world-space .grass {
-    background: #5555aa;
-}
+.world-space #ground { background: #272746; }
+.world-space .grass { background: #5555aa; }
 
 /* =========================
    MOBILE
@@ -860,14 +1102,13 @@ body {
     display: none;
 }
 
-@media (max-width: 500px) {
-
+@media (max-width: 600px) {
     #game {
         width: 100vw;
         height: 100vh;
         border: none;
+        border-radius: 0;
     }
-
     #mobileControl {
         display: block;
         position: absolute;
@@ -879,12 +1120,15 @@ body {
         font-size: 9px;
         pointer-events: none;
     }
+    .title-screen h1 { font-size: 32px; }
+    .title-screen h2 { font-size: 46px; }
+    .mountain-layer { height: 220px; }
+    .mountain-layer.back { height: 180px; }
+    .menu-sun { width: 70px; height: 70px; top: 25px; right: 25px; }
 
-    .title-screen h1 {
-        font-size: 27px;
-    }
+    .background-logo .logo-track img { height: 130px; }
+}
 
-    .title-screen h2 {
-        font-size: 40px;
-    }
+@media (max-width: 900px) {
+    .background-logo .logo-track img { height: 160px; }
 }
